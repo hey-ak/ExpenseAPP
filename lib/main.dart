@@ -1,5 +1,6 @@
 import 'package:expenseapp/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,16 +34,21 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        backgroundColor: Colors.purple,
+        title: Text('Expense App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Card(
-            color: Colors.blue,
-            child: Container(width: double.infinity, child: Text("Chart")),
+          Container(
+            child: Card(
+              color: Colors.blue,
+              child: Container(width: double.infinity, child: Text("Chart")),
+            ),
           ),
+          Card(child: Column(children: [TextField(),
+          TextField()],),),
           Column(
             children: transaction.map((txt) {
               return Card(
@@ -55,25 +61,24 @@ class MyHomePage extends StatelessWidget {
                       border: Border.all(width: 2, color: Colors.purple),
                     ),
                     child: Text(
-                      
-                      txt.amount.toString(),
-                      
-                      style:TextStyle(fontWeight:FontWeight.bold, 
-                      color: Colors.purple,
-                      fontSize: 20)
-                      ,
-                      ),
+                      "\$${txt.amount}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple,
+                          fontSize: 20),
+                    ),
                   ),
+                  
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        
                         txt.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      Text(txt.date.toString(),
-                      style:const  TextStyle(color: Colors.grey)),
+                      Text(DateFormat.yMMMMd().format(txt.date),
+                          style: const TextStyle(color: Colors.grey)),
                     ],
                   )
                 ],
